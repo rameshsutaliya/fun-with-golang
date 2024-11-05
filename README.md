@@ -12,3 +12,6 @@ To run a specific test case:
 
 To see all the test cases verbose:
 `go test ./... -v`
+
+change the build.sh access mode:
+`chmod +x build.sh`
