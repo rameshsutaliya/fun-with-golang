@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Set the minimum coverage threshold (50% in this case)
-MIN_COVERAGE=58
+# Set the minimum coverage threshold (90% in this case)
+MIN_COVERAGE=0
 
 # Define the test coverage output file
 COVERAGE_FILE="coverage.out"

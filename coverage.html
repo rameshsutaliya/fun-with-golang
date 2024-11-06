@@ -57,7 +57,9 @@
 				
 				<option value="file0">fun-with-golang/ch1/functions/different_types_function.go (100.0%)</option>
 				
-				<option value="file1">fun-with-golang/main.go (0.0%)</option>
+				<option value="file1">fun-with-golang/gui/ui.go (0.0%)</option>
+				
+				<option value="file2">fun-with-golang/main.go (0.0%)</option>
 				
 				</select>
 			</div>
@@ -106,20 +108,81 @@ func Named(val int) (firstPart, secondPart int) <span class="cov8" title="1">{
         secondPart = val - firstPart
         return
 }</span>
+
+func GetGreetMsg() string <span class="cov8" title="1">{
+        return "˗ˏˋ ★ ˎˊ˗ welcome !!"
+}</span>
 </pre>
 		
-		<pre class="file" id="file1" style="display: none">package main
+		<pre class="file" id="file1" style="display: none">package gui
 
 import (
-        "fmt"
         "fun-with-golang/ch1/functions"
+        "image/color"
+        "log"
+        "os"
+
+        "gioui.org/app"
+        "gioui.org/op"
+        "gioui.org/text"
+        "gioui.org/widget/material"
+)
+
+func Init() <span class="cov0" title="0">{
+        go func() </span><span class="cov0" title="0">{
+                window := new(app.Window)
+                window.Option(app.Title("Fun-With-Golang"))
+                err := run(window)
+                if err != nil </span><span class="cov0" title="0">{
+                        log.Fatal(err)
+                }</span>
+                <span class="cov0" title="0">os.Exit(0)</span>
+        }()
+        <span class="cov0" title="0">app.Main()</span>
+}
+func run(window *app.Window) error <span class="cov0" title="0">{
+        theme := material.NewTheme()
+        var ops op.Ops
+        for </span><span class="cov0" title="0">{
+                switch e := window.Event().(type) </span>{
+                case app.DestroyEvent:<span class="cov0" title="0">
+                        return e.Err</span>
+                case app.FrameEvent:<span class="cov0" title="0">
+                        // This graphics context is used for managing the rendering state.
+                        gtx := app.NewContext(&amp;ops, e)
+
+                        // Define an large label with an appropriate text:
+                        title := material.H1(theme, functions.GetGreetMsg())
+
+                        // Change the color of the label.
+                        maroon := color.NRGBA{R: 127, G: 100, B: 0, A: 255}
+                        title.Color = maroon
+
+                        // Change the position of the label.
+                        title.Alignment = text.Middle
+
+                        // Draw the label to the graphics context.
+                        title.Layout(gtx)
+
+                        // Pass the drawing operations to the GPU.
+                        e.Frame(gtx.Ops)</span>
+                }
+        }
+}
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package main
+
+import (
+        "fun-with-golang/gui"
 )
 
 func main() <span class="cov0" title="0">{
-        functions.Greet()                  // it should print the "Hello World!"
-        fmt.Println(functions.Named(7))    // should split into two values as 3, and 4
-        fmt.Println(functions.Add(13, 17)) // should return 30
-        fmt.Println(functions.Swap(1, 2))  // should print 2, 1
+        //functions.Greet()                  // it should print the "Hello World!"
+        //fmt.Println(functions.Named(7))    // should split into two values as 3, and 4
+        //fmt.Println(functions.Add(13, 17)) // should return 30
+        //fmt.Println(functions.Swap(1, 2))  // should print 2, 1
+        gui.Init()
 }</span>
 </pre>
 		
