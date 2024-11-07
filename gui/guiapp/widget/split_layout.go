@@ -11,7 +11,7 @@ type (
 	}
 )
 
-func (s SplitWidget) Layout(gtx layout.Context, left, right layout.Widget) layout.Dimensions {
+func (s *SplitWidget) Layout(gtx layout.Context, left, right layout.Widget) layout.Dimensions {
 	lSize := gtx.Constraints.Min.X / 2
 	rSize := gtx.Constraints.Min.X - lSize
 	// creating a code block with left widget own scope

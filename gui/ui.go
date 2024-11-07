@@ -7,5 +7,6 @@ import (
 
 func Init() {
 	//guiapp.Layout(greet.Layout)
-	guiapp.Layout(widget.DrawSplitVisual)
+	//guiapp.Layout(widget.DrawSplitVisual)
+	guiapp.Layout(widget.ExampleSplit)
 }
