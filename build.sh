@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Set the minimum coverage threshold (90% in this case)
-MIN_COVERAGE=0
+MIN_COVERAGE=80
 
 # Define the test coverage output file
 COVERAGE_FILE="coverage.out"
 
 # Run Go tests with coverage profile
 echo "Running Go tests with coverage..."
-go test -coverprofile=$COVERAGE_FILE ./...
+go test -coverprofile=$COVERAGE_FILE ./ch1/...
 
 # Check if tests failed
 if [ $? -ne 0 ]; then

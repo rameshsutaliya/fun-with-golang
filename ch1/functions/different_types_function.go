@@ -35,5 +35,5 @@ func Named(val int) (firstPart, secondPart int) {
 }
 
 func GetGreetMsg() string {
-	return "˗ˏˋ ★ ˎˊ˗ welcome !!"
+	return "˗ˏˋ ★ ˎˊ˗\n welcome !!"
 }

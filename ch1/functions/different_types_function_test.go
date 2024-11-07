@@ -166,7 +166,7 @@ func TestGetGreetMsg(t *testing.T) {
 	}{
 		{
 			name: "Valid Greet msg",
-			want: "˗ˏˋ ★ ˎˊ˗ welcome !!",
+			want: "˗ˏˋ ★ ˎˊ˗\n welcome !!",
 		},
 	}
 	for _, tt := range tests {

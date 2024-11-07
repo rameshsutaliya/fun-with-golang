@@ -2,54 +2,29 @@ package gui
 
 import (
 	"fun-with-golang/ch1/functions"
-	"image/color"
-	"log"
-	"os"
-
-	"gioui.org/app"
-	"gioui.org/op"
+	"fun-with-golang/gui/guiapp"
+	"gioui.org/layout"
 	"gioui.org/text"
 	"gioui.org/widget/material"
+	"image/color"
 )
 
+var Theme *material.Theme
+
 func Init() {
-	go func() {
-		window := new(app.Window)
-		window.Option(app.Title("Fun-With-Golang"))
-		err := run(window)
-		if err != nil {
-			log.Fatal(err)
-		}
-		os.Exit(0)
-	}()
-	app.Main()
+	Theme = material.NewTheme()
+	guiapp.Layout(Layout)
 }
-func run(window *app.Window) error {
-	theme := material.NewTheme()
-	var ops op.Ops
-	for {
-		switch e := window.Event().(type) {
-		case app.DestroyEvent:
-			return e.Err
-		case app.FrameEvent:
-			// This graphics context is used for managing the rendering state.
-			gtx := app.NewContext(&ops, e)
 
-			// Define an large label with an appropriate text:
-			title := material.H1(theme, functions.GetGreetMsg())
+// Layout handles rendering and input.
+func Layout(gtx layout.Context) layout.Dimensions {
+	return Title(Theme, functions.GetGreetMsg()).Layout(gtx)
+}
 
-			// Change the color of the label.
-			maroon := color.NRGBA{R: 127, G: 100, B: 0, A: 255}
-			title.Color = maroon
-
-			// Change the position of the label.
-			title.Alignment = text.Middle
-
-			// Draw the label to the graphics context.
-			title.Layout(gtx)
-
-			// Pass the drawing operations to the GPU.
-			e.Frame(gtx.Ops)
-		}
-	}
+// Title creates a center aligned H1.
+func Title(th *material.Theme, caption string) material.LabelStyle {
+	l := material.H1(th, caption)
+	l.Color = color.NRGBA{R: 127, G: 22, B: 100, A: 255}
+	l.Alignment = text.Middle
+	return l
 }
