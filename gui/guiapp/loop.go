@@ -1,12 +1,16 @@
 package guiapp
 
 import (
-	"gioui.org/app"
-	"gioui.org/layout"
-	"gioui.org/op"
+	"gioui.org/font/gofont"
+	"gioui.org/text"
+	"gioui.org/widget/material"
 	"image"
 	"log"
 	"os"
+
+	"gioui.org/app"
+	"gioui.org/layout"
+	"gioui.org/op"
 )
 
 // Render is a utility to start a rendering Gio app.
@@ -66,8 +70,10 @@ func Metric(fn func(gtx layout.Context)) {
 }
 
 // Layout is a utility to start a layouting Gio app.
-func Layout(lay func(gtx layout.Context) layout.Dimensions) {
+func Layout(draw func(gtx layout.Context, th *material.Theme) layout.Dimensions) {
 	go func() {
+		th := material.NewTheme()
+		th.Shaper = text.NewShaper(text.WithCollection(gofont.Collection()))
 		w := new(app.Window)
 		w.Option(app.Title("fun-with-golang"))
 		var ops op.Ops
@@ -81,7 +87,7 @@ func Layout(lay func(gtx layout.Context) layout.Dimensions) {
 				os.Exit(0)
 			case app.FrameEvent:
 				gtx := app.NewContext(&ops, e)
-				lay(gtx)
+				draw(gtx, th)
 				e.Frame(gtx.Ops)
 			}
 		}
