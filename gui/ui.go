@@ -2,11 +2,12 @@ package gui
 
 import (
 	"fun-with-golang/gui/guiapp"
-	"fun-with-golang/gui/guiapp/widget"
+	"fun-with-golang/gui/guiapp/theme"
 )
 
 func Init() {
 	//guiapp.Layout(greet.Layout)
 	//guiapp.Layout(widget.DrawSplitVisual)
-	guiapp.Layout(widget.ExampleSplit)
+	guiapp.Layout(theme.ColorUpdateLayout)
+	//guiapp.Layout(widget.ExampleSplit)
 }
