@@ -2,7 +2,11 @@ module fun-with-golang
 
 go 1.23.1
 
-require gioui.org v0.7.1
+require (
+	gioui.org v0.7.1
+	golang.org/x/exp v0.0.0-20240707233637-46b078467d37
+	gonum.org/v1/gonum v0.15.1
+)
 
 require (
 	gioui.org/cpu v0.0.0-20210817075930-8d6a761490d2 // indirect
@@ -10,7 +14,6 @@ require (
 	github.com/go-text/typesetting v0.1.1 // indirect
 	github.com/shurcooL/go v0.0.0-20200502201357-93f07166e636 // indirect
 	github.com/shurcooL/go-goon v1.0.0 // indirect
-	golang.org/x/exp v0.0.0-20240707233637-46b078467d37 // indirect
 	golang.org/x/exp/shiny v0.0.0-20240707233637-46b078467d37 // indirect
 	golang.org/x/image v0.18.0 // indirect
 	golang.org/x/sys v0.22.0 // indirect

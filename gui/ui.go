@@ -1,6 +1,6 @@
 package gui
 
-import "fun-with-golang/gui/guiapp/gio_example/timer"
+import "fun-with-golang/gui/guiapp/gio_example/galaxy"
 
 func Init() {
 	//guiapp.Layout(greet.Layout)
@@ -10,5 +10,7 @@ func Init() {
 	//guiapp.Layout(gio_example.Counter{}.Layout)
 	//counter.CounterExample()
 	//temperature.TempConvertor()
-	timer.TimerView()
+	//timer.TimerView()
+	//tabs.TabsView()
+	galaxy.View()
 }
