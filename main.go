@@ -1,9 +1,8 @@
 package main
 
-import (
-	"fun-with-golang/gui"
-)
+import "fun-with-golang/neetcode"
 
 func main() {
-	gui.Init()
+	//gui.Init()
+	neetcode.Init()
 }

@@ -8,7 +8,7 @@ COVERAGE_FILE="coverage.out"
 
 # Run Go tests with coverage profile
 echo "Running Go tests with coverage..."
-go test -coverprofile=$COVERAGE_FILE ./ch1/...
+go test -coverprofile=$COVERAGE_FILE ./ch1/... ./neetcode/...
 
 # Check if tests failed
 if [ $? -ne 0 ]; then
