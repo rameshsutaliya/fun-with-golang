@@ -57,6 +57,12 @@
 				
 				<option value="file0">fun-with-golang/ch1/functions/different_types_function.go (100.0%)</option>
 				
+				<option value="file1">fun-with-golang/neetcode/array_hashing/contains_duplicate.go (100.0%)</option>
+				
+				<option value="file2">fun-with-golang/neetcode/array_hashing/is_anagram.go (100.0%)</option>
+				
+				<option value="file3">fun-with-golang/neetcode/driver.go (0.0%)</option>
+				
 				</select>
 			</div>
 			<div id="legend">
@@ -107,6 +113,81 @@ func Named(val int) (firstPart, secondPart int) <span class="cov8" title="1">{
 
 func GetGreetMsg() string <span class="cov8" title="1">{
         return "˗ˏˋ ★ ˎˊ˗\n welcome !!"
+}</span>
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package array_hashing
+
+/*
+Given an integer array nums, return true if any value appears more than once in the array, otherwise return false.
+*/
+
+func ContainsDuplicate(arr []int) bool <span class="cov8" title="1">{
+        hashSet := make(map[int]bool)
+        for _, num := range arr </span><span class="cov8" title="1">{
+                _, exists := hashSet[num]
+                if exists </span><span class="cov8" title="1">{
+                        return true
+                }</span> else<span class="cov8" title="1"> {
+                        hashSet[num] = true
+                }</span>
+        }
+        <span class="cov8" title="1">return false</span>
+}
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package array_hashing
+
+/*
+Given two strings s and t, return true if the two strings are anagrams of each other, otherwise return false.
+An anagram is a string that contains the exact same characters as another string, but the order of the characters can be different.
+Example 1:
+Input: s = "racecar", t = "carrace"
+Output: true
+Example 2:
+Input: s = "jar", t = "jam"
+Output: false
+Constraints:
+`s` and `t` consist of lowercase English letters.
+
+*/
+
+func IsAnagram(first, second string) bool <span class="cov8" title="1">{
+        if len(first) != len(second) </span><span class="cov8" title="1">{
+                return false
+        }</span>
+        <span class="cov8" title="1">charCount := make([]int, 26)
+        for idx := 0; idx &lt; len(first); idx++ </span><span class="cov8" title="1">{
+                charCount[first[idx]-'a']++
+                charCount[second[idx]-'a']--
+        }</span>
+
+        <span class="cov8" title="1">for _, num := range charCount </span><span class="cov8" title="1">{
+                if num != 0 </span><span class="cov8" title="1">{
+                        return false
+                }</span>
+        }
+
+        <span class="cov8" title="1">return true</span>
+}
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package neetcode
+
+import (
+        "fmt"
+        "fun-with-golang/neetcode/array_hashing"
+)
+
+//
+
+func Init() <span class="cov0" title="0">{
+        //test1 := []int{1, 2, 3, 3}
+        //test2 := []int{1, 2, 3, 4}
+
+        //fmt.Println(array_hashing.ContainsDuplicate(test1))
+        //fmt.Println(array_hashing.ContainsDuplicate(test2))
+        fmt.Println(array_hashing.IsAnagram("cat", "tac"))
 }</span>
 </pre>
 		
