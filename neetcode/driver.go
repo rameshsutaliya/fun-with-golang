@@ -13,5 +13,6 @@ func Init() {
 
 	//fmt.Println(array_hashing.ContainsDuplicate(test1))
 	//fmt.Println(array_hashing.ContainsDuplicate(test2))
-	fmt.Println(array_hashing.IsAnagram("cat", "tac"))
+	//fmt.Println(array_hashing.IsAnagram("cat", "tac"))
+	fmt.Println(array_hashing.GetTwoSum([]int{3, 4, 5, 6}, 10))
 }
