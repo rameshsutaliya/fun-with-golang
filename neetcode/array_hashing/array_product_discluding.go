@@ -38,3 +38,22 @@ func ProductWithoutIncludingSelf(arr []int) ([]int, error) {
 	}
 	return sol, nil
 }
+
+// Optimised solution for above case:
+func OptimisedProductWithoutSelf(arr []int) ([]int, error) {
+	n := len(arr)
+	if n < 2 {
+		return nil, errors.New("invalid Input, Input array length should be >= 2")
+	}
+	sol := make([]int, n)
+	left, right := 1, 1
+	for i := 0; i < n; i++ {
+		sol[i] = left
+		left *= arr[i]
+	}
+	for i := 0; i < n; i++ {
+		sol[n-i-1] *= right
+		right *= arr[n-i-1]
+	}
+	return sol, nil
+}
