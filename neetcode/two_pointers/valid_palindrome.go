@@ -1,4 +1,4 @@
-package array_hashing
+package two_pointers
 
 import (
 	"strings"
