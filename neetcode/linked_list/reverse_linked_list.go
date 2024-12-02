@@ -16,5 +16,6 @@ func reverseList(head *ListNode) *ListNode {
 		reverse = temp
 		last = currTemp
 	}
+	reverse.Next = last
 	return reverse
 }
