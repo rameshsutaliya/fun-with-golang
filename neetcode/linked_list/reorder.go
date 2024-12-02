@@ -24,33 +24,11 @@ Constraints:
 */
 
 func ReorderList(head *ListNode) *ListNode {
-	firstPart := &ListNode{}
-	tempFirst := firstPart
-	secondPart := &ListNode{}
-	tempSecond := secondPart
-	isFirst := true
-	for head != nil {
-		if isFirst {
-			tempFirst.Next = head
-			tempFirst = tempFirst.Next
-			isFirst = false
-		} else {
-			isFirst = true
-			tempSecond.Next = head
-			tempSecond = tempSecond.Next
-		}
-		head = head.Next
-	}
-	if isFirst {
-		tempFirst.Next = nil
-	} else {
-		tempSecond.Next = nil
-	}
-	reversedPart := reverseList(secondPart.Next)
+	firstPart, secondPart := getOddEven(head)
+	reversedPart := reverseList(secondPart)
 
 	merge := &ListNode{}
 	combine := merge
-	firstPart = firstPart.Next
 	for firstPart != nil && reversedPart != nil {
 		combine.Next = firstPart
 		combine = combine.Next
@@ -66,4 +44,30 @@ func ReorderList(head *ListNode) *ListNode {
 	}
 
 	return merge.Next
+}
+
+func getOddEven(head *ListNode) (odd, even *ListNode) {
+	odd, even = &ListNode{}, &ListNode{}
+	oddP, evenP := odd, even
+	isOdd := true
+
+	for head != nil {
+		if isOdd {
+			oddP.Next = head
+			oddP = oddP.Next
+		} else {
+			evenP.Next = head
+			evenP = evenP.Next
+		}
+		head = head.Next
+		isOdd = !isOdd
+	}
+
+	if isOdd {
+		oddP.Next = nil
+	} else {
+		evenP.Next = nil
+	}
+
+	return odd.Next, even.Next
 }
