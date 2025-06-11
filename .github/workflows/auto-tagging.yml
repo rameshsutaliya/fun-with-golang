@@ -33,6 +33,7 @@ jobs:
             git config user.name "github-actions[bot]" # Configure Git user for the commit
             git config user.email "github-actions[bot]@users.noreply.github.com" # Configure Git email
             git tag $TAG_NAME # Create the tag
+          fi
 
       - name: Push Git tag
         run: |
