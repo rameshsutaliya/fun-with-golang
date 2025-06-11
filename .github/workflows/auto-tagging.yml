@@ -22,21 +22,17 @@ jobs:
           SOURCE_BRANCH=$(echo "${{ github.event.pull_request.head.ref }}" | sed 's/refs\/heads\///')
           echo "Source branch: $SOURCE_BRANCH"
           echo "tag_name=$SOURCE_BRANCH" >> $GITHUB_OUTPUT # Set an output variable for later steps
-      - name: Create Git tag
+      - name: Create Git tag if not exists
         run: |
           TAG_NAME="${{ steps.get_branch_name.outputs.tag_name }}"
           echo "Checking for existing tag: $TAG_NAME"
+
           if git rev-parse -q --verify "refs/tags/$TAG_NAME"; then
             echo "Tag '$TAG_NAME' already exists. Skipping tag creation."
           else
-            echo "Attempting to create tag: $TAG_NAME"
+            echo "Creating and pushing tag: Tag '$TAG_NAME'."
             git config user.name "github-actions[bot]" # Configure Git user for the commit
             git config user.email "github-actions[bot]@users.noreply.github.com" # Configure Git email
-            git tag $TAG_NAME # Create the tag
+            git tag $TAG_NAME # Create the tag locally
+            git push origin $TAG_NAME # Push the newly created local tag to the remote
           fi
-
-      - name: Push Git tag
-        run: |
-          TAG_NAME="${{ steps.get_branch_name.outputs.tag_name }}"
-          echo "Pushing tag: $TAG_NAME"
-          git push origin $TAG_NAME # Push the tag to origin
