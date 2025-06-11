@@ -7,7 +7,9 @@ on:
 
 jobs:
   create-tag:
-    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'R')
+    if: | 
+      github.event.pull_request.merged == true && 
+      startsWith(github.event.pull_request.head.ref, 'R')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -26,7 +28,6 @@ jobs:
         run: |
           TAG_NAME="${{ steps.get_branch_name.outputs.tag_name }}"
           echo "Checking for existing tag: $TAG_NAME"
-
           if git rev-parse -q --verify "refs/tags/$TAG_NAME"; then
             echo "Tag '$TAG_NAME' already exists. Skipping tag creation."
           else
