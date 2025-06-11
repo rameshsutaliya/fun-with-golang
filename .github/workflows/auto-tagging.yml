@@ -1,9 +1,9 @@
 name: Auto Tag on PR Merge to Main
 on:
   pull_request:
-    types: [closed] # Trigger when a pull request is closed
+    types: [closed]
     branches:
-      - main # Only consider PRs targeting the 'main' branch
+      - main
 jobs:
   create-tag:
     if: |
@@ -29,11 +29,11 @@ jobs:
           TAG_NAME="${{ steps.get_branch_name.outputs.tag_name }}"
           echo "Checking for existing tag: $TAG_NAME"
 
-          # Check if the tag already exists
+          # tag already exists?
           if git rev-parse -q --verify "refs/tags/$TAG_NAME"; then
             echo "Tag '$TAG_NAME' already exists. Skipping tag creation."
           else
-            echo "Tag '$TAG_NAME' does not exist. Creating and pushing tag."
+            echo "Creating and pushing Tag: '$TAG_NAME' does not exist."
             git config user.name "github-actions[bot]" # Configure Git user for the commit
             git config user.email "github-actions[bot]@users.noreply.github.com" # Configure Git email
             git tag "$TAG_NAME" # Create the tag locally. Use quotes for tag name.
