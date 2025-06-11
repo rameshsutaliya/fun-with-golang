@@ -1,14 +1,13 @@
 name: Auto Tag on PR Merge to Main
 on:
   pull_request:
-    types: [closed]
+    types: [closed] # Trigger when a pull request is closed
     branches:
-      - main
-
+      - main # Only consider PRs targeting the 'main' branch
 jobs:
   create-tag:
-    if: | 
-      github.event.pull_request.merged == true && 
+    if: |
+      github.event.pull_request.merged == true &&
       startsWith(github.event.pull_request.head.ref, 'R')
     runs-on: ubuntu-latest
     permissions:
@@ -21,19 +20,22 @@ jobs:
       - name: Get source branch name
         id: get_branch_name
         run: |
-          SOURCE_BRANCH=$(echo "${{ github.event.pull_request.head.ref }}" | sed 's/refs\/heads\///')
+          # Remove 'refs/heads/' prefix if present, though for head.ref it's usually just the branch name
+          SOURCE_BRANCH=$(echo "${{ github.event.pull_request.head.ref }}" | sed 's/^refs\/heads\///')
           echo "Source branch: $SOURCE_BRANCH"
-          echo "tag_name=$SOURCE_BRANCH" >> $GITHUB_OUTPUT # Set an output variable for later steps
+          echo "tag_name=$SOURCE_BRANCH" >> "$GITHUB_OUTPUT" # Use quotes for GITHUB_OUTPUT to be safe
       - name: Create Git tag if not exists
         run: |
           TAG_NAME="${{ steps.get_branch_name.outputs.tag_name }}"
           echo "Checking for existing tag: $TAG_NAME"
+
+          # Check if the tag already exists
           if git rev-parse -q --verify "refs/tags/$TAG_NAME"; then
             echo "Tag '$TAG_NAME' already exists. Skipping tag creation."
           else
-            echo "Creating and pushing tag: Tag '$TAG_NAME'."
+            echo "Tag '$TAG_NAME' does not exist. Creating and pushing tag."
             git config user.name "github-actions[bot]" # Configure Git user for the commit
             git config user.email "github-actions[bot]@users.noreply.github.com" # Configure Git email
-            git tag $TAG_NAME # Create the tag locally
-            git push origin $TAG_NAME # Push the newly created local tag to the remote
+            git tag "$TAG_NAME" # Create the tag locally. Use quotes for tag name.
+            git push origin "$TAG_NAME" # Push the newly created local tag to the remote. Use quotes for tag name.
           fi
